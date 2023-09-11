@@ -22,9 +22,9 @@ export default {
   data() {
     return { 
       posts: [
-        {id: 1, title: 'Vue', body: 'типо описание'},
-        {id: 2, title: 'Vue2', body: 'типо описание'},
-        {id: 3, title: 'Vue3', body: 'типо описание'},
+        {id: 1, title: 'Vue', body: 'типо описание1'},
+        {id: 2, title: 'Vue2', body: 'типо описание2'},
+        {id: 3, title: 'Vue3', body: 'типо описание3'},
       ],
 
     }
@@ -46,9 +46,9 @@ export default {
 
 <style>
 * {
-  margin: 10;
-  padding: 10;
-  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box ;
 
 }
 
