@@ -1,11 +1,20 @@
 <template>
   <div class = "app">
-    <post-form
-    @create="createPost"
-    />
+    <div class="menu">
+
+
+    <h1 class="mb-10" >Странице с постами</h1>
+    <my-button @click="showDialog" class="mb-10" >Создать пост</my-button>
+    <my-dialog v-model:show="dialogVisible">
+      <post-form
+      @create="createPost"
+      />
+    </my-dialog>
     <post-list 
     :posts="posts"
+    @remove="removePost"
     />
+    </div>
 
   </div>
 </template>
@@ -13,12 +22,16 @@
 <script>
 import PostForm from './components/PostForm.vue';
 import PostList from './components/PostList.vue';
+import MyButton from './components/UI/MyButton.vue';
+import MyDialog from './components/UI/MyDialog.vue';
 
 
 export default {
   components: {
-    PostList,PostForm
-  },
+    PostList, PostForm,
+    MyDialog,
+    MyButton
+},
   data() {
     return { 
       posts: [
@@ -26,6 +39,7 @@ export default {
         {id: 2, title: 'Vue2', body: 'типо описание2'},
         {id: 3, title: 'Vue3', body: 'типо описание3'},
       ],
+      dialogVisible: false,
 
     }
   },
@@ -33,10 +47,17 @@ export default {
     createPost(post) {
       console.log(post)
       this.posts.push(post);
+      this.dialogVisible = false;
 
 
 
     },
+    removePost(post) {
+      this.posts = this.posts.filter(p => p.id !== post.id)
+    },
+    showDialog() {
+      this.dialogVisible = true;
+    }
 
     
   }
@@ -51,7 +72,16 @@ export default {
   box-sizing: border-box ;
 
 }
+.menu {
+  
+  width: 50%;
+  display: block;
+  margin: 0% auto;
+}
 
+.mb-10 {
+  margin-bottom: 10px;
+}
 
 
 </style>

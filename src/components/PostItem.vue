@@ -5,7 +5,7 @@
             <div><strong>Описание</strong> {{ post.body }}</div>
         </div>
         <div class="post_btns">
-            <my-button>Удалить</my-button>
+            <my-button @click="$emit('remove', post)" >Удалить</my-button>
 
         </div>
     </div>
@@ -13,11 +13,9 @@
 </template>
 
 <script>
-import MyButton from "@/components/UI/MyButton";
+
 export default {
-    components: {
-        MyButton
-    },
+    
     props: {
         post: {
             type: Object,
