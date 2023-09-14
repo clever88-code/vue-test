@@ -1,6 +1,6 @@
 <template>
   <div class = "app">
-    <div class="menu">
+    <div class="conteiner1">
 
 
     <h1 class="mb-10" >Странице с постами</h1>
@@ -13,7 +13,11 @@
     <post-list 
     :posts="posts"
     @remove="removePost"
+    v-if="!isPostLoading"
     />
+    <div v-else >
+      Идёт загрузка
+    </div>
     </div>
 
   </div>
@@ -24,7 +28,7 @@ import PostForm from './components/PostForm.vue';
 import PostList from './components/PostList.vue';
 import MyButton from './components/UI/MyButton.vue';
 import MyDialog from './components/UI/MyDialog.vue';
-
+import axios from 'axios';
 
 export default {
   components: {
@@ -34,12 +38,9 @@ export default {
 },
   data() {
     return { 
-      posts: [
-        {id: 1, title: 'Vue', body: 'типо описание1'},
-        {id: 2, title: 'Vue2', body: 'типо описание2'},
-        {id: 3, title: 'Vue3', body: 'типо описание3'},
-      ],
+      posts: [],
       dialogVisible: false,
+      isPostLoading: false,
 
     }
   },
@@ -57,9 +58,26 @@ export default {
     },
     showDialog() {
       this.dialogVisible = true;
-    }
+    },
+    async fetchPosts() {
+      try{
+        this.isPostLoading = true;
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+        console.log(response)
+        this.posts = response.data;
+
+      } catch (e) {
+        alert("ошибка")
+      } finally {
+        this.isPostLoading = false;
+      }
+
+    },
 
     
+  },
+  mounted() {
+    this.fetchPosts();
   }
 }
 
@@ -72,7 +90,7 @@ export default {
   box-sizing: border-box ;
 
 }
-.menu {
+.conteiner1 {
   
   width: 50%;
   display: block;
